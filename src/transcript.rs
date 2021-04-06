@@ -476,7 +476,7 @@ mod tests {
 
     #[test]
     fn transcript_rng_is_bound_to_transcript_and_witnesses() {
-        use curve25519_dalek::scalar::Scalar;
+        use curve25519_dalek_ng::scalar::Scalar;
         use rand_chacha::ChaChaRng;
         use rand_core::SeedableRng;
 
