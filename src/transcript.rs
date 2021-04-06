@@ -1,4 +1,9 @@
-use rand_core;
+#[cfg(feature = "rc5")]
+use rc5 as rand_core;
+
+#[cfg(feature = "rc6")]
+use rc6 as rand_core;
+
 use zeroize::Zeroize;
 
 use crate::strobe::Strobe128;
@@ -231,9 +236,12 @@ impl Transcript {
 ///
 /// These methods are intended to be chained, passing from a borrowed
 /// [`Transcript`] to an owned [`TranscriptRng`] as follows:
-/// ```
+/// ```rust
 /// # extern crate merlin;
-/// # extern crate rand_core;
+/// #[cfg(feature = "rc5")]
+/// use rc5 as rand_core;
+/// #[cfg(feature = "rc6")]
+/// use rc6 as rand_core;
 /// # use merlin::Transcript;
 /// # fn main() {
 /// # let mut transcript = Transcript::new(b"TranscriptRng doctest");

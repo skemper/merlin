@@ -21,8 +21,19 @@ features = ["nightly"]
 keccak = { version = "0.1.0", default-features = false }
 byteorder = { version = "1.2.4", default-features = false }
 zeroize = { version = "1", default-features = false, features = ["zeroize_derive"] }
-rand_core = { version = "0.6", default-features = false }
 hex = {version = "0.3", default-features = false, optional = true}
+
+[dependencies.rc6]
+package = "rand_core"
+version = "0.6"
+default-features = false
+optional = true
+
+[dependencies.rc5]
+package = "rand_core"
+version = "0.5"
+default-features = false
+optional = true
 
 [dev-dependencies]
 strobe-rs = "0.5"
@@ -30,7 +41,9 @@ curve25519-dalek-ng = "4.0"
 rand_chacha = "0.3"
 
 [features]
-default = ["std"]
+default = ["std", "rc6", "std6"]
 nightly = []
 debug-transcript = ["hex"]
-std = ["rand_core/std", "byteorder/std"]
+std = ["byteorder/std"]
+std6 = ["rc6/std"]
+std5 = ["rc5/std"]
