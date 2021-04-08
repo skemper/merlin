@@ -177,11 +177,11 @@ impl Transcript {
     /// also appended to the transcript.  See the [Transcript
     /// Protocols](https://merlin.cool/use/protocol.html) section of
     /// the Merlin website for details on labels.
-    pub fn challenge_bytes(&mut self, label: &'static [u8], dest: &mut [u8]) {
-        let data_len = encode_usize_as_u32(dest.len());
+    pub fn challenge_bytes<B>(&mut self, label: &'static [u8], dest: &mut B) where B: AsMut<[u8]> {
+        let data_len = encode_usize_as_u32(dest.as_mut().len());
         self.strobe.meta_ad(label, false);
         self.strobe.meta_ad(&data_len, true);
-        self.strobe.prf(dest, false);
+        self.strobe.prf(dest.as_mut(), false);
 
         #[cfg(feature = "debug-transcript")]
         {
